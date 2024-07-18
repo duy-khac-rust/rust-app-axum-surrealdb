@@ -5,8 +5,11 @@ use surrealdb::{
     Surreal,
 };
 
+// mod.rs
 pub mod error;
 pub mod site;
+pub mod student;
+
 
 pub async fn init_db(
     addr: String,

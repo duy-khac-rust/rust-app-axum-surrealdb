@@ -4,7 +4,11 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-axum = { version = "0.7.5", features = ["macros"] }
+axum = { version = "0.7.5", features = [ "macros" ] }
 surrealdb = "1.5.4"
-tokio = { version = "1.38.1", features = ["full"] }
-uuid = { version = "1.10.0", features = ["v4", "fast-rng"] }
+tokio = { version = "1.38.1", features = [ "full" ] }
+uuid = { version = "1.10.0", features = [ "v4", "fast-rng" ] }
+
+
+# Members
+domain-backend = { path = "../domain-backend" }
