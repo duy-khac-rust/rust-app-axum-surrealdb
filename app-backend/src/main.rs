@@ -1,5 +1,5 @@
 use api_backend::routes;
-use core_backend::ProdConfig;
+use core_backend::config::ProdConfig;
 use dotenv::dotenv;
 use inftra_backend::init_db;
 use tokio::net::TcpListener;
@@ -38,5 +38,6 @@ async fn main() {
         .await
         .expect("listener is failed!");
 
+    
     axum::serve(listener, app).await.unwrap();
 }
