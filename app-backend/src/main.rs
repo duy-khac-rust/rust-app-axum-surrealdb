@@ -1,8 +1,8 @@
 use api_backend::routes;
-use axum::middleware::{self, map_response};
+use axum::middleware;
 use core_backend::config::ProdConfig;
 use dotenv::dotenv;
-use inftra_backend::{init_db, middleware::auth::mw_auth};
+use inftra_backend::{init_db, middleware::{auth::mw_auth, map_response::mw_map_response}};
 use tokio::net::TcpListener;
 
 #[tokio::main]
@@ -34,8 +34,8 @@ async fn main() {
 
     // Start server
     let app = routes()
-        .layer(middleware::map_request_with_state(db.clone(), mw_auth))
-        .layer(middleware::map_response_with_state(db.clone(), map_response))
+        .layer(middleware::map_response(mw_map_response))
+        .layer(middleware::from_fn_with_state(db.clone(), mw_auth))
         .with_state(db);
 
     let listener = TcpListener::bind(cfg.web.addr.as_str())
