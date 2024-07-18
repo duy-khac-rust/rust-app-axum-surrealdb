@@ -13,6 +13,11 @@ pub struct Web {
 #[derive(Deserialize)]
 pub struct Surrealdb {
     pub addr: String,
+    pub username: String,
+    pub password: String,
+    pub namespace: String,
+    pub database: String,
+    
 }
 
 #[derive(Deserialize)]
