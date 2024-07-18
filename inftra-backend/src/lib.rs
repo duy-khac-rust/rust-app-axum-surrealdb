@@ -9,6 +9,7 @@ use surrealdb::{
 pub mod error;
 pub mod site;
 pub mod student;
+pub mod middleware;
 
 
 pub async fn init_db(

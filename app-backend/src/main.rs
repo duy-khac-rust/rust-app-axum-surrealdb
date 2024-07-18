@@ -1,7 +1,8 @@
 use api_backend::routes;
+use axum::middleware::{self, map_response};
 use core_backend::config::ProdConfig;
 use dotenv::dotenv;
-use inftra_backend::init_db;
+use inftra_backend::{init_db, middleware::auth::mw_auth};
 use tokio::net::TcpListener;
 
 #[tokio::main]
@@ -32,7 +33,10 @@ async fn main() {
     };
 
     // Start server
-    let app = routes().with_state(db);
+    let app = routes()
+        .layer(middleware::map_request_with_state(db.clone(), mw_auth))
+        .layer(middleware::map_response_with_state(db.clone(), map_response))
+        .with_state(db);
 
     let listener = TcpListener::bind(cfg.web.addr.as_str())
         .await
